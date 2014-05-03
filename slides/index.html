@@ -1,0 +1,185 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>AngularJS Workshop</title>
+  <link rel="stylesheet" href="bower_components/reveal.js/css/reveal.min.css">
+  <link rel="stylesheet" href="bower_components/reveal.js/css/theme/night.css">
+  <link rel="stylesheet" href="bower_components/reveal.js/lib/css/zenburn.css">
+
+  <link rel="stylesheet" href="css/customTheme.css">
+
+</head>
+<body>
+  <!--[if lt IE 7]>
+    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+  <![endif]-->
+  <div class="reveal">
+    <div class="slides">
+
+      <section data-markdown>
+        # AngularJS Workshop
+
+        Google got your back
+      </section>
+
+      <section data-markdown>
+        ## Follow along
+
+        http://niklas-r.github.io/AngularJS-workshop
+      </section>
+
+      <section data-markdown>
+        ## What to expect?
+
+        Throughout this workshop we'll be switching between presentation and writing code.
+
+        At the end of this workshop you should have written a variant of the famous [Todo Manager](http://todomvc.com/) and feel confindent enough to use Angular in a real project.
+      </section>
+
+      <section data-markdown>
+        ## Why?
+
+        AngularJS is an [MV*](https://plus.google.com/+AngularJS/posts/aZNVhj355G2) framework that is ideal for use when building client-side single-page apps.
+
+        It's also great for creating encapsulated components embedded in a web page.
+      </section>
+
+      <section data-markdown>
+        ## When?
+
+        If you're finding yourself building a SPA, AngularJS will be perfect for you. Gmail, Google Docs, Twitter, and Facebook all fit into the AngularJS sweet spot.
+      </section>
+
+      <section data-markdown>
+        ## Don't use Angular
+
+        ...if you're doing game development, manipulating the DOM *a lot* or need high speed performance (using a framework comes at a cost).
+      </section>
+
+      <section>
+
+        <section>
+
+          <h2>Getting started</h2>
+
+          <pre><code data-trim data-noescape>
+&lt;!doctype html&gt;
+&lt;html <span class="highlight">ng-app</span>&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;My Angular App&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;input type="text" <span class="highlight">ng-model="yourName"</span> placeholder="Enter a name here"&gt;
+    &lt;h1&gt;Hello, <span class="highlight">{{ yourName }}</span>!&lt;/h1&gt;
+  &lt;/div&gt;
+  &lt;script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+          </code></pre>
+
+        </section>
+
+        <section>
+
+          <h2>Modules</h2>
+
+          <pre><code data-trim data-noescape>
+<span class="file-name">index.html</span>
+&lt;!doctype html&gt;
+&lt;html ng-app="<span class="highlight">myApp</span>"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;My Angular App&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;input type="text" ng-model="yourName" placeholder="Enter a name here"&gt;
+    &lt;h1&gt;Hello, {{ yourName }}!&lt;/h1&gt;
+  &lt;/div&gt;
+  &lt;script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"&gt;&lt;/script&gt;
+  &lt;script src="myapp.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+          </code></pre>
+
+          <pre><code data-trim data-noescape>
+<span class="file-name">myapp.js</span>
+var app = angular.module('myApp', []);
+          </code></pre>
+        </section>
+
+        <section>
+
+          <pre><code data-trim>
+<h2>Outside of the Angular realm</h2>
+<div ng-app="embeddedApp">
+  <h3>I'm an "embedded" Angular app!</h3>
+</div>
+          </code></pre>
+
+        </section>
+
+        <section>
+          <h2>Make use of your module</h2>
+
+          <pre><code data-noescape> <span class="file-name">index.html</span>
+&lt;div ng-app="myApp"&gt;
+  &lt;p&gt;{{ myName }}&lt;/p&gt;
+&lt;/div&gt;
+          </code></pre>
+
+          <pre><code data-noescape><span class="file-name">myapp.js</span>
+var app = angular.module('myApp', []);
+
+app.run(function ($rootScope) {
+  $rootScope.myName = 'Charlie';
+});
+          </code></pre>
+        </section>
+
+      </section>
+
+    <div>
+  </div>
+
+  <script src="bower_components/reveal.js/lib/js/head.min.js"></script>
+  <script src="bower_components/reveal.js/js/reveal.min.js"></script>
+
+  <script>
+  /*global Reveal*/
+  Reveal.initialize({
+    transition: 'linear',
+    backgroundTransition: 'slide',
+    // Push each slide change to the browser history
+    history:true,
+    dependencies: [
+      // Cross-browser shim that fully implements classList - https://github.com/eligrey/classList.js/
+      { src: 'bower_components/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+
+      // Interpret Markdown in <section> elements
+      { src: 'bower_components/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'bower_components/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+
+      // Syntax highlight for <code> elements
+      { src: 'bower_components/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+
+      // Zoom in and out with Alt+click
+      // { src: 'bower_components/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+
+      // Speaker notes
+      { src: 'bower_components/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+
+      // Remote control your reveal.js presentation using a touch device
+      // { src: 'bower_components/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+    ]
+  });
+  </script>
+</body>
+</html>
