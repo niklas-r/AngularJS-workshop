@@ -75,7 +75,8 @@ pre code span.highlight {
   -webkit-animation: pulse 2s infinite ease-in-out;
 }
 
-pre code span.file-name {
+pre code[data-filename]:after {
+  content: attr(data-filename);
   position: absolute;
   font-size: .9rem;
   top: 0;
@@ -83,4 +84,9 @@ pre code span.file-name {
   background-color: rgba(0, 0, 0, .5);
   border-radius: 0 0 0 5px;
   padding: 2px 4px;
+}
+
+.reveal p code {
+  color: #FFCD7B;
+  background-color: rgba(0, 0, 0, .3);
 }

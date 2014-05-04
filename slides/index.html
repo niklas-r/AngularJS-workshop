@@ -27,38 +27,69 @@
         Google got your back
       </section>
 
-      <section data-markdown>
-        ## Follow along
+      <section>
+        <h2>Follow along</h2>
 
-        http://niklas-r.github.io/AngularJS-workshop
+        <a href="http://niklas-r.github.io/AngularJS-workshop">http://niklas-r.github.io/AngularJS-workshop</a>
+
+        <aside class="notes" data-markdown>
+          Följ gärna med. På så vis kan du klicka på länkar i presentationen.
+        </aside>
       </section>
 
-      <section data-markdown>
-        ## What to expect?
+      <section>
+        <h3>What to expect?</h3>
 
-        Throughout this workshop we'll be switching between presentation and writing code.
+        <p>Throughout this workshop we'll be switching between presentation and writing code.</p>
 
-        At the end of this workshop you should have written a variant of the famous [Todo Manager](http://todomvc.com/) and feel confindent enough to use Angular in a real project.
+        <p>At the end of this workshop you should have written a variant of the famous [Todo Manager](http://todomvc.com/) and feel confindent enough to use Angular in a real project.</p>
+
+        <aside class="notes" data-markdown>
+          Blandat slides och kodning.
+          Syfte med denna workshop är att du ska kunna ta AngularJS uppdrag.
+        </aside>
       </section>
 
-      <section data-markdown>
-        ## Why?
+      <section>
+        <h3>Why?</h3>
 
-        AngularJS is an [MV*](https://plus.google.com/+AngularJS/posts/aZNVhj355G2) framework that is ideal for use when building client-side single-page apps.
+        <p>AngularJS is an <a href="https://plus.google.com/+AngularJS/posts/aZNVhj355G2">MV*</a> framework that is ideal for use when building client-side single-page apps.</p>
 
-        It's also great for creating encapsulated components embedded in a web page.
+        <p>It's also great for creating encapsulated components embedded in a web page.</p>
+
+        <aside class="notes" data-markdown>
+          Varför Angular?
+
+          Perfekt för SPA.
+
+          Också bra för inkapslade client-side komponenter. Ungefär som web components.
+        </aside>
       </section>
 
-      <section data-markdown>
-        ## When?
+      <section>
+        <h3>When?</h3>
 
-        If you're finding yourself building a SPA, AngularJS will be perfect for you. Gmail, Google Docs, Twitter, and Facebook all fit into the AngularJS sweet spot.
+        <p>If you're finding yourself building a SPA, AngularJS will be perfect for you. Gmail, Google Docs, Twitter, and Facebook all fit into the AngularJS sweet spot.</p>
+
+        <aside class="notes" data-markdown>
+          När ska du använda Angular?
+
+          Som sagt, SPA, eller inbäddade client-side komponenter.
+
+          Stora siter är vanligtvis inte full-fjädrade SPA's utan dom kör mer på client-side komponenter. Gmails "skicka mail"-ruta, Facebooks chat och bildvisare.
+        </aside>
       </section>
 
-      <section data-markdown>
-        ## Don't use Angular
+      <section>
+        <h3>Don't use Angular</h3>
 
-        ...if you're doing game development, manipulating the DOM *a lot* or need high speed performance (using a framework comes at a cost).
+        <p>...if you're doing game development or manipulating the DOM *a lot*..</p>
+
+        <aside class="notes" data-markdown>
+          Det finns ramverk som är specialanpassade för spelutveckling, Angular är inte ett utav dom.
+
+          Angular har ett ganska begränsat stöd för animering. Du kan göra de vanligaste animationerna som man behöver i en web app men behöver du göra advancerad animering med t.ex keyframing m.m. så passar t.ex GreenSock bättre för det.
+        </aside>
       </section>
 
       <section>
@@ -76,22 +107,32 @@
 &lt;/head&gt;
 &lt;body&gt;
   &lt;div&gt;
-    &lt;input type="text" <span class="highlight">ng-model="yourName"</span> placeholder="Enter a name here"&gt;
-    &lt;h1&gt;Hello, <span class="highlight">{{ yourName }}</span>!&lt;/h1&gt;
+    &lt;input type="text" <span class="highlight">ng-model="name"</span> placeholder="Please enter your name"&gt;
+    &lt;h1&gt;Hello, <span class="highlight">{{ name }}</span>!&lt;/h1&gt;
   &lt;/div&gt;
   &lt;script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
           </code></pre>
 
+          <aside class="notes" data-markdown>
+            Vad gör vi här?
+
+            Vi länkar in Angular.
+
+            Start Angular genom ng-app direktivet.
+
+            Binder värdet i input-fältet till modellen "name".
+
+            Visar värdet från modellen "name" genom dubbla {{}}, ett så kallat expression. Ett Angular expression är i princip JavaScript kod med några skillnader.
+          </aside>
         </section>
 
         <section>
 
           <h2>Modules</h2>
 
-          <pre><code data-trim data-noescape>
-<span class="file-name">index.html</span>
+          <pre><code data-trim data-noescape data-filename="index.html">
 &lt;!doctype html&gt;
 &lt;html ng-app="<span class="highlight">myApp</span>"&gt;
 &lt;head&gt;
@@ -100,8 +141,8 @@
 &lt;/head&gt;
 &lt;body&gt;
   &lt;div&gt;
-    &lt;input type="text" ng-model="yourName" placeholder="Enter a name here"&gt;
-    &lt;h1&gt;Hello, {{ yourName }}!&lt;/h1&gt;
+    &lt;input type="text" ng-model="name" placeholder="Please enter your name"&gt;
+    &lt;h1&gt;Hello, {{ name }}!&lt;/h1&gt;
   &lt;/div&gt;
   &lt;script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"&gt;&lt;/script&gt;
   &lt;script src="myapp.js"&gt;&lt;/script&gt;
@@ -109,10 +150,17 @@
 &lt;/html&gt;
           </code></pre>
 
-          <pre><code data-trim data-noescape>
-<span class="file-name">myapp.js</span>
+          <pre><code data-trim data-noescape data-filename="myapp.js">
 var app = angular.module('myApp', []);
           </code></pre>
+
+          <aside class="notes" data-markdown>
+            Här har vi namngett vår app.
+
+            Genom att namnge vår app kan vi skapa en ny Angular modul och binda den till vilket DOM-element vi vill.
+
+            angular.module funktionen tar emot två parametrar, ett modul-namn och en lista med dependencies. Just nu har vi inga dependencies och därför är den tom, men vi kan ändå inte utesluta array för så skapar inte Angular någon ny modul.
+          </aside>
         </section>
 
         <section>
@@ -124,24 +172,150 @@ var app = angular.module('myApp', []);
 </div>
           </code></pre>
 
+          <aside class="notes" data-markdown>
+            Ett exempel på hur det skulle kunna se ut med en inbäddad komponent.
+          </aside>
         </section>
 
         <section>
           <h2>Make use of your module</h2>
 
-          <pre><code data-noescape> <span class="file-name">index.html</span>
+          <pre><code data-trim data-noescape data-filename="index.html">
 &lt;div ng-app="myApp"&gt;
   &lt;p&gt;{{ myName }}&lt;/p&gt;
 &lt;/div&gt;
           </code></pre>
 
-          <pre><code data-noescape><span class="file-name">myapp.js</span>
+          <pre><code data-trim data-noescape data-filename="myapp.js">
 var app = angular.module('myApp', []);
 
 app.run(function ($rootScope) {
-  $rootScope.myName = 'Charlie';
+  $rootScope.myName = 'Joe';
 });
           </code></pre>
+
+          <aside class="notes" data-markdown>
+            Här har vi skapat en ny modul och lagt till en ny modell på $rootScopet.
+
+            På det här sättet kan vi skicka data mellan vår HTML och JS kod.
+
+            Vi kommer nu prata med om scopes.
+          </aside>
+        </section>
+
+      </section>
+
+      <section>
+
+        <section>
+          <h2>Scopes</h2>
+
+          <p>A scope is what ties the view (a DOM element) to the controller (your JS code).</p>
+
+          <p>Every Angular app is created with a <code>$rootScope</code>.</p>
+
+          <aside class="notes" data-markdown>
+            Scopes binder samma din vy (HTML) med din controller (JS).
+
+            Alla Angular appar skapas med ett $rootScope.
+          </aside>
+        </section>
+
+        <section>
+
+          <p>It sounds complicated, but really a scope is just a JavaScript object which you bind properties and methods to, to make them available in your HTML.</p>
+
+          <pre><code data-trim data-noescape data-filename="index.html">
+&lt;button type="button" <span class="highlight">ng-click="sayHi()"</span>&gt;Hello&lt;/button&gt;
+          </code></pre>
+
+          <pre><code data-trim data-filename="myapp.js">
+app.run(function ($rootScope) {
+  var notAvailableInView = 123;
+
+  $rootScope.sayHi = function () {
+    alert("Hi!");
+  };
+});
+          </code></pre>
+
+          <aside class="notes" data-markdown>
+            Det kanske låter komplicerat men ett scope är egentligen bara ett JS-objekt som du sätter metoder och data på så det kan bli tillgängligt i din HTML.
+          </aside>
+
+        </section>
+
+        <section>
+          <h3>Controllers</h3>
+
+          <p>To create a new <code>$scope</code> explicitly we create a new controller.</p>
+
+          <pre><code data-trim data-filename="index.html" data-noescape>
+&lt;div <span class="highlight">ng-controller="MyCtrl"</span>&gt;
+  &lt;p&gt;{{ user.name }}&lt;/p&gt;
+&lt;/div&gt;
+          </code></pre>
+
+          <pre><code data-trim data-filename="myapp.js">
+app.controller('MyCtrl', function ($scope) {
+  $scope.user = {
+    name: 'Joe'
+  };
+});
+          </code></pre>
+
+          <aside class="notes" data-markdown>
+            Hittills har vi bara använt oss av $rootScope.
+
+            Det är bad practice att binda allt för mycket till $rootScope. Angulars data-binding har en tendens att bli seg på stora objekt. Dessutom blir det svårläslig kod.
+
+            Skapa istället en controller och gör den tillgänglig i din vy med ng-controller direktivet.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Scope inheritance</h3>
+
+          <p>Scopes inherit prototypically. This means that everything available on the parent scope will be available on all of it's child scopes.</p>
+
+          <img src="images/scope01.png" alt="Scope inheritance">
+
+          <aside class="notes" data-markdown>
+            Scopes fungerar precis som objekt i vanlig JavaScript och äver från varandra prototypiskt.
+
+            Detta betyder att all data på ett parent scope är tillgänglig på dess child scopes.
+          </aside>
+        </section>
+
+        <section>
+
+          <pre><code data-trim data-filename="index.html">
+<div ng-controller="ParentCtrl">
+  <p>{{ user.name }}</p>
+
+  <div ng-controller="ChildCtrl">
+    <button type="button" ng-click="greetUser(user)">Say hello!</button>
+  </div>
+</div>
+          </code></pre>
+
+          <pre><code data-trim data-filename="myapp.js">
+app.controller('ParentCtrl', function ( $scope ) {
+  $scope.user = {
+    name: 'Joe'
+  };
+});
+
+app.controller('ChildCtrl', function ( $scope ) {
+  $scope.greetUser = function (user) {
+    alert('Hello, ' + user.name + '!');
+  };
+});
+          </code></pre>
+
+          <aside class="notes" data-markdown>
+            Här kan vi se hur `user` deklareras i ParentCtrl och genom prototypisk arv är `user` även tillgänglig i ChildCtrl.
+          </aside>
         </section>
 
       </section>
