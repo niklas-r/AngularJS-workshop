@@ -21,16 +21,16 @@
   <div class="reveal">
     <div class="slides">
 
-      <section data-markdown>
-        # AngularJS Workshop
+      <section>
+        <h1>AngularJS Workshop</h1>
 
-        Google got your back
+        <p>Google got your back</p>
       </section>
 
       <section>
         <h2>Follow along</h2>
 
-        <a href="http://niklas-r.github.io/AngularJS-workshop">http://niklas-r.github.io/AngularJS-workshop</a>
+        <a href="http://niklas-r.github.io/AngularJS-workshop">http://niklas-r.github.io/AngularJS-workshop/slides/</a>
 
         <aside class="notes" data-markdown>
           Följ gärna med. På så vis kan du klicka på länkar i presentationen.
@@ -42,7 +42,7 @@
 
         <p>Throughout this workshop we'll be switching between presentation and writing code.</p>
 
-        <p>At the end of this workshop you should have written a variant of the famous [Todo Manager](http://todomvc.com/) and feel confindent enough to use Angular in a real project.</p>
+        <p>At the end of this workshop you should have written a variant of the famous <a href="http://todomvc.com/">Todo Manager</a> and feel confindent enough to use Angular in a real project.</p>
 
         <aside class="notes" data-markdown>
           Blandat slides och kodning.
@@ -83,7 +83,7 @@
       <section>
         <h3>Don't use Angular</h3>
 
-        <p>...if you're doing game development or manipulating the DOM *a lot*..</p>
+        <p>...if you're doing game development or manipulating the DOM <strong>a lot</strong>.</p>
 
         <aside class="notes" data-markdown>
           Det finns ramverk som är specialanpassade för spelutveckling, Angular är inte ett utav dom.
@@ -159,6 +159,8 @@ var app = angular.module('myApp', []);
 
             Genom att namnge vår app kan vi skapa en ny Angular modul och binda den till vilket DOM-element vi vill.
 
+            Du kan tänka på en modul som en container för olika funktionalitet i din app.
+
             angular.module funktionen tar emot två parametrar, ett modul-namn och en lista med dependencies. Just nu har vi inga dependencies och därför är den tom, men vi kan ändå inte utesluta array för så skapar inte Angular någon ny modul.
           </aside>
         </section>
@@ -203,14 +205,12 @@ app.run(function ($rootScope) {
           </aside>
         </section>
 
-      </section>
-
-      <section>
-
         <section>
           <h2>Scopes</h2>
 
           <p>A scope is what ties the view (a DOM element) to the controller (your JS code).</p>
+
+          <p>Scopes are used to add behavior to your view.</p>
 
           <p>Every Angular app is created with a <code>$rootScope</code>.</p>
 
@@ -223,17 +223,17 @@ app.run(function ($rootScope) {
 
         <section>
 
-          <p>It sounds complicated, but really a scope is just a JavaScript object which you bind properties and methods to, to make them available in your HTML.</p>
+          <p>It sounds complicated, but really a scope is just a JavaScript object which you bind properties and methods to, this makes them available in your HTML.</p>
 
           <pre><code data-trim data-noescape data-filename="index.html">
 &lt;button type="button" <span class="highlight">ng-click="sayHi()"</span>&gt;Hello&lt;/button&gt;
           </code></pre>
 
-          <pre><code data-trim data-filename="myapp.js">
+          <pre><code data-trim data-noescape data-filename="myapp.js">
 app.run(function ($rootScope) {
   var notAvailableInView = 123;
 
-  $rootScope.sayHi = function () {
+  <span class="highlight">$rootScope.sayHi</span> = function () {
     alert("Hi!");
   };
 });
@@ -248,12 +248,24 @@ app.run(function ($rootScope) {
         <section>
           <h3>Controllers</h3>
 
-          <p>To create a new <code>$scope</code> explicitly we create a new controller.</p>
+          <p>To explicitly create a new <code>$scope</code> we create a new controller.</p>
 
-          <pre><code data-trim data-filename="index.html" data-noescape>
-&lt;div <span class="highlight">ng-controller="MyCtrl"</span>&gt;
-  &lt;p&gt;{{ user.name }}&lt;/p&gt;
-&lt;/div&gt;
+          <blockquote>
+            In Angular, a Controller is a JavaScript <strong>constructor function</strong> that is used to augment the <a href="https://docs.angularjs.org/guide/scope">Angular Scope</a>.
+          </blockquote>
+
+          <aside class="notes" data-markdown>
+            Med controllers kan du skapa nya scopes för att enkapsulera funktionalitet som hör till en viss vy.
+          </aside>
+
+        </section>
+
+        <section>
+
+          <pre><code data-trim data-filename="index.html">
+<div ng-controller="MyCtrl">
+  <p>{{ user.name }}</p>
+</div>
           </code></pre>
 
           <pre><code data-trim data-filename="myapp.js">
@@ -281,7 +293,7 @@ app.controller('MyCtrl', function ($scope) {
           <img src="images/scope01.png" alt="Scope inheritance">
 
           <aside class="notes" data-markdown>
-            Scopes fungerar precis som objekt i vanlig JavaScript och äver från varandra prototypiskt.
+            Scopes fungerar precis som objekt i vanlig JavaScript och ärver från varandra prototypiskt.
 
             Detta betyder att all data på ett parent scope är tillgänglig på dess child scopes.
           </aside>
@@ -291,8 +303,6 @@ app.controller('MyCtrl', function ($scope) {
 
           <pre><code data-trim data-filename="index.html">
 <div ng-controller="ParentCtrl">
-  <p>{{ user.name }}</p>
-
   <div ng-controller="ChildCtrl">
     <button type="button" ng-click="greetUser(user)">Say hello!</button>
   </div>
@@ -301,25 +311,40 @@ app.controller('MyCtrl', function ($scope) {
 
           <pre><code data-trim data-filename="myapp.js">
 app.controller('ParentCtrl', function ( $scope ) {
-  $scope.user = {
-    name: 'Joe'
+  $scope.greetUser = function (user) {
+    alert('Hello, ' + user.name + '!');
   };
 });
 
 app.controller('ChildCtrl', function ( $scope ) {
-  $scope.greetUser = function (user) {
-    alert('Hello, ' + user.name + '!');
+  $scope.user = {
+    name: 'Joe'
   };
 });
           </code></pre>
 
           <aside class="notes" data-markdown>
-            Här kan vi se hur `user` deklareras i ParentCtrl och genom prototypisk arv är `user` även tillgänglig i ChildCtrl.
+            Här kallar vi på greetUser från childCtrl som är deklarerad i parentCtrl.
           </aside>
+
+        </section>
+
+        <section>
+          <h2>Recap</h2>
+          <ul>
+            <li>Modules are "containers" of functionality.</li>
+            <li>Modules can be attached to any DOM-element.</li>
+            <li>Controllers creates new scopes.</li>
+            <li>You can add behavior to the view through scopes.</li>
+            <li>Scopes inherit prototypically.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3><a href="/exercises/step1.html">Time to code!</a></h3>
         </section>
 
       </section>
-
     <div>
   </div>
 
